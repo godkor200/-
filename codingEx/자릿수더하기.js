@@ -1,9 +1,8 @@
 function solution(n) {
   let result = 0;
-  let a = n.split("");
-  console.log("🚀 ~ file: 자릿수더하기.js ~ line 4 ~ solution ~ a ", a);
-  for (let i = 0; i < n.length; i++) {
-    result += n[i];
+  let num = n.toString();
+  for (let i = 0; i < num.length; i++) {
+    result += Number(num[i]);
   }
   return result;
 }
