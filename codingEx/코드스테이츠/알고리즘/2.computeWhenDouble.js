@@ -18,6 +18,7 @@ console.log(output); // --> 8
 function computeWhenDouble(interestRate) {
   return Math.ceil(72 / interestRate);
 }
+
 let output = computeWhenDouble(7);
 console.log(output); // --> 11
 function computeWhenDouble(interestRate) {

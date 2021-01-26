@@ -20,4 +20,21 @@ output = firstCharacter(
 );
 console.log(output); // --> "TcaCSmbtba"
 */
-function firstCharacter(str) {}
+function firstCharacter(str) {
+  let result = [];
+  result.push(str[0]);
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === ' ') {
+      result.push(str[i + 1]);
+    }
+  }
+  return result.join('');
+}
+
+let output1 = firstCharacter('hello world');
+console.log(output1);
+
+let output2 = firstCharacter(
+  'The community at Code States might be the biggest asset'
+);
+console.log(output2);
