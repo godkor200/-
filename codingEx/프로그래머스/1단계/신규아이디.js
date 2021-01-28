@@ -1,77 +1,57 @@
+// function solution(new_id) {
+//   let SpecialChar = /[\{\}\[\]\/?,;:|\)*~`!^\+<>@\#$%&\\\=\(\'\"]/gi;
+//   let dot = /[.]+/g;
+//   let temp = new_id.toLowerCase().replace(SpecialChar, '').replace(dot, '.');
+//   let result = dotRemove(temp);
+//   return sliceText(result);
+// }
+
+// function dotRemove(temp) {
+//   return temp[0] === '.' && temp[temp.length - 1] === '.'
+//     ? temp.slice(1, temp.length - 1)
+//     : temp[0] === '.'
+//     ? temp.slice(1)
+//     : temp[temp.length - 1] === '.'
+//     ? temp.slice(0, temp.length - 1)
+//     : !temp || temp.length === 0
+//     ? 'a'
+//     : temp;
+// }
+
+// function sliceText(result) {
+//   if (result.length >= 16) {
+//     result = result.slice(0, 15);
+//   } else if (result.length === 2) {
+//     result = result + result[result.length - 1];
+//   } else if (result.length === 1) {
+//     result = result + result + result;
+//   } else if (result.length === 0) {
+//     result = 'aaa';
+//   }
+//   return result[result.length - 1] === '.'
+//     ? result.slice(0, result.length - 1)
+//     : result;
+// }
 function solution(new_id) {
-  let temp = [];
-  //1단기
-  new_id
+  let result = new_id
     .toLowerCase()
-    .split("")
-    .map((e) => temp.push(step2(e)));
-  temp = temp.filter((e) => e !== "");
-  temp = step3(temp).filter((e) => e !== "");
-  temp = step4(temp).filter((e) => e !== "");
-  let result = temp.filter((e) => e !== "").join("");
-  return (result.length >= 3 && result.length < 16) || !result
-    ? step6(result)
-    : step5(result);
+    .replace(/[^\w-_.]/g, '')
+    .replace(/[.]+/g, '.')
+    .replace(/^\.|\.$/g, '')
+    .replace(/^$/, 'a')
+    .slice(0, 15)
+    .replace(/\.$/g, '');
+  return result.length > 2
+    ? result
+    : result + result.charAt(result.length - 1).repeat(3 - result.length);
 }
-
-function step2(new_id) {
-  let arr = "~!@#$%^&*()=+[{]}:?,<>/";
-  let eng = /^[a-z]*$/;
-  for (let i = 0; i < arr.length; i++) {
-    if (eng.test(new_id)) break;
-    if (new_id === "-" || new_id === "_" || new_id === ".") break;
-    if (arr[i] === new_id) {
-      return "";
-    }
-  }
-  return new_id;
-}
-
-function step3(temp) {
-  for (let i = 0; i < temp.length; i++) {
-    if (temp[i] === "." && temp[i + 1] === "." && temp[i + 2] === ".") {
-      temp[i] = ".";
-      temp[i + 1] = "";
-      temp[i + 2] = "";
-    } else if (temp[i] === "." && temp[i + 1] === ".") {
-      temp[i] = ".";
-      temp[i + 1] = "";
-    }
-  }
-  return temp;
-}
-
-function step4(temp) {
-  if (temp[0] === "." && temp[temp.length - 1] === ".") {
-    temp[0] = "";
-    temp[temp.length - 1] = "";
-  } else if (temp[0] === ".") {
-    temp[0] = "";
-  } else if (temp[temp.length - 1] === ".") {
-    temp[temp.length - 1] = "";
-  }
-  return temp;
-}
-function step5(char) {
-  //if (!temp) return "aaa";
-  return char[14] === "." ? char.slice(0, 14) : char.slice(0, 15);
-}
-function step6(char) {
-  if (!char) return "aaa";
-  if (char.length === 1) {
-    return char + char + char;
-  } else if (char.length === 2) {
-    return char + char[char.length - 1];
-  }
-  return char[14] === "." ? char.slice(0, 14) : char.slice(0, 15);
-}
-console.log("🚀", solution("...!@BaT#*..y.abcdefghijklm"));
-console.log("결과", solution("abcdefghijklmn.p"));
-console.log("결과", solution("=.="));
-console.log("결과", solution("z-+.^."));
-console.log("결과", solution("123_.def"));
-console.log("결과", solution("~!@#$%^&*()=+[{]}:?,<>/"));
-console.log("결과", solution(".1."));
+console.log('🚀', solution('...!@BaT#*..y.abcdefghijklm'));
+console.log('결과', solution('abcdefghijklmn.p'));
+console.log('결과', solution('=.='));
+console.log('결과', solution('z-+.^.'));
+console.log('결과', solution('123_.def'));
+console.log('결과', solution('~!@#$%^&*()=+[{]}:?,<>/'));
+console.log('결과', solution('.1.'));
 
 /*
 '~!@#$%^&*()=+[{]}:?,<>/' === 'aaa'
